@@ -1585,9 +1585,12 @@ class Com_RedcoreInstallerScript
 			$original = $original . '/' . $xmlFile;
 			$originalXml = JFactory::getXML($original);
 
-			if (version_compare((string) $sourceXml->version, (string) $originalXml->version, '<'))
+			if (!is_null($sourceXml) && !is_null($originalXml) && is_object($sourceXml) && is_object($originalXml))
 			{
-				return false;
+				if (version_compare((string) $sourceXml->version, (string) $originalXml->version, '<'))
+				{
+					return false;
+				}
 			}
 		}
 
