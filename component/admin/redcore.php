@@ -19,7 +19,7 @@ RLoader::registerPrefix('Redcore', dirname(__FILE__));
 
 $app = JFactory::getApplication();
 
-RHtmlMedia::setFramework('bootstrap3');
+RHtmlMedia::setFramework('backend-bootstrap3');
 
 // Check access.
 if (!JFactory::getUser()->authorise('core.manage', 'com_redcore'))

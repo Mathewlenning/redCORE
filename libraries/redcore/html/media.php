@@ -69,6 +69,14 @@ abstract class RHtmlMedia
 				'disableMootools' => true,
 			);
 		}
+		elseif ($framework == 'backend-bootstrap3')
+		{
+			self::$frameworkSuffix = 'backbs3';
+			self::$frameworkOptions = array(
+				'disableMootools' => true,
+				'disableIsis' => true,
+			);
+		}
 		elseif ($framework == 'foundation5')
 		{
 			self::$frameworkSuffix = 'fd5';
@@ -116,6 +124,10 @@ abstract class RHtmlMedia
 			{
 				RHelperAsset::load('component.bs3.min.css', 'redcore');
 			}
+			elseif (self::getFramework() == 'backend-bootstrap3')
+			{
+				RHelperAsset::load('component.backbs3.min.css', 'redcore');
+			}
 			elseif (self::getFramework() == 'foundation5')
 			{
 			}
@@ -150,6 +162,10 @@ abstract class RHtmlMedia
 			{
 				RHelperAsset::load('lib/bootstrap3/bootstrap.min.js', 'redcore');
 			}
+			elseif (self::getFramework() == 'backend-bootstrap3')
+			{
+				RHelperAsset::load('lib/backend-bootstrap3/bootstrap.min.js', 'redcore');
+			}
 			elseif (self::getFramework() == 'foundation5')
 			{
 			}
@@ -171,6 +187,28 @@ abstract class RHtmlMedia
 		}
 
 		if (!empty(self::$frameworkOptions['disableMootools']))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns true if Isis styles and scripts should be disabled for current framework
+	 *
+	 * @param   string  $defaultFramework  Set as default framework
+	 *
+	 * @return  boolean
+	 */
+	public static function isIsisDisabled($defaultFramework = '')
+	{
+		if (!empty($defaultFramework))
+		{
+			self::setFramework($defaultFramework);
+		}
+
+		if (!empty(self::$frameworkOptions['disableIsis']))
 		{
 			return true;
 		}

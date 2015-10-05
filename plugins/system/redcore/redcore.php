@@ -316,6 +316,13 @@ class PlgSystemRedcore extends JPlugin
 				unset($doc->_scripts[JURI::root(true) . '/templates/' . $template . '/js/jui/bootstrap.js']);
 				unset($doc->_scripts[JURI::root(true) . '/templates/' . $template . '/js/jui/bootstrap.min.js']);
 			}
+
+			// Remove isis template files in backend
+			if ($isAdmin && $this->disableIsis())
+			{
+				unset($doc->_styleSheets[JURI::root(true) . '/administrator/templates/isis/css/template.css']);
+				unset($doc->_scripts[JURI::root(true) . '/administrator/templates/isis/js/template.js']);
+			}
 		}
 	}
 
@@ -371,6 +378,25 @@ class PlgSystemRedcore extends JPlugin
 		if (!$disable)
 		{
 			$disable = RHtmlMedia::isMootoolsDisabled();
+		}
+
+		return $disable;
+	}
+
+	/**
+	 * Check if the view asked to disable isis styles and scripts
+	 *
+	 * @return  boolean
+	 */
+	private function disableIsis()
+	{
+		$app = JFactory::getApplication();
+
+		$disable = $app->input->get('disable_isis', false);
+
+		if (!$disable)
+		{
+			$disable = RHtmlMedia::isIsisDisabled();
 		}
 
 		return $disable;
